@@ -5,7 +5,8 @@ pub enum Literal {
     None,
 }
 
-enum TokenType {
+#[derive(Debug, Clone, PartialEq)]
+pub enum TokenType {
     // Single-character tokens.
     LEFT_PAREN,
     RIGHT_PAREN,
@@ -60,4 +61,25 @@ pub struct Token {
     pub lexeme: String,
     pub literal: Literal,
     pub line: uszie,
+}
+
+impl Token {
+    pub fn new(token_type: TokenType, lexeme: String, literal: Literal, line: usize) -> Self {
+        Token {
+            token_type: token_type,
+            lexeme: lexeme,
+            literal: literal,
+            line: line,
+        }
+    }
+}
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write! {
+               f,
+               "{:?}{}{:?}",
+               self.token_type,self.lexeme,self.literal
+        }
+    }
 }
